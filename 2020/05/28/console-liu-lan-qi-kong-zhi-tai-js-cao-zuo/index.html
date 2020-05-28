@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="oio, null">
+    <meta name="keywords" content="console-浏览器控制台js操作, null">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>oio | null</title>
+    <title>console-浏览器控制台js操作 | null</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.0/css/all.css">
@@ -267,12 +267,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">oio</h1>
+                    <h1 class="description center-align post-title">console-浏览器控制台js操作</h1>
                 </div>
             </div>
         </div>
@@ -401,7 +401,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-30
+                    2020-05-28
                 </div>
                 
 
@@ -417,7 +417,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>菜鸟网 <a href="https://www.runoob.com" target="_blank" rel="noopener">https://www.runoob.com</a> </p>
+                <h4 id="进入console："><a href="#进入console：" class="headerlink" title="进入console："></a>进入console：</h4><p>直接进入：按下Option + Command + J（Mac）或者Ctrl + Shift + J（Windows / Linux）</p>
+<p>进入控制台以后，就可以在提示符后输入代码，然后按Enter键，代码就会执行。如果按Shift + Enter键，就是代码换行，不会触发执行</p>
+<p>显示信息的命令<br>console.log(“log”); //用于普通信息输出<br>console.info(“info”);//用于提示性信息<br>console.error(“error”);//用于输出错误信息<br>console.log(“warn”);//用于输出提示信息<br>console.dirxml(“输出代码带标签”)；//<br>1<br>2<br>3<br>4<br>5<br>显示效果</p>
+<p>信息分组<br>类似于下拉框,使用group()开头，使用groupEnd()结尾，中间可以穿插普通命令</p>
+<p>console.group(“this is one “);<br>        console.log(“one”);<br>        console.log(“two”)<br>        console.error(“error”)<br>console.groupEnd();<br>1<br>2<br>3<br>4<br>5<br>效果</p>
+<p>点位符<br>说句实话我感觉没啥用，但是我列出来是因为他的这个穿插还是有一丢丢作用</p>
+<script type="text/javascript">
+    console.log("%s","this is console");//字符串(%s)
+    console.log("%d年%d月%d日",2019,5,20);//整数(%d)
+    console.log("圆周率 %f","3.14159");//浮点(%f)
+    let users = {
+        name:'wang',
+        age:18
+    }
+    console.log("%o",users)//对象(%o)
+</script>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>将对象以树状展示<br>console.dir()可以输出对象的所有属性和方法</p>
+<script type="text/javascript">
+    var info = {
+        name : "Alan",
+        grilFriend : "nothing",
+        getName : function(){
+            return this.name;
+        }
+    }
+console.log(info);
+console.dir(info)
+</script>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>效果</p>
+<p>计时功能<br>通过开始time(),到结束timeEnd()中间代码的执行时间，计时器可以有无数个，通过括号中的标记区分彼此</p>
+<script type="text/javascript">
+    console.time("time")
+        for(let i = 0;i<10000;i++){}
+    console.timeEnd("time")
+</script>
+<p>1<br>2<br>3<br>4<br>5<br>打印结果为中间代码也就是for循环执行时间</p>
+<p>输出表格形式<br>    let users = [{<br>        name:’wang’,<br>        age:18<br>    },{<br>        name:’zhang’,<br>        age:19<br>    },{<br>        name:’li’,<br>        age:20<br>    }]<br>    console.table(users)<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>效果</p>
+<p>判断变量是否为真<br>    console.assert(false,”第一个参数为假时输出，提醒类型为error”)<br>1</p>
+<p>判断执行次数<br>function list(){<br>        console.count(“被执行”);<br>    }<br>    list();<br>    list();<br>1<br>2<br>3<br>4<br>5</p>
+<p>$(0-4)<br>$0,$1,$2,$3,$4表示最近使用的几个节点</p>
+<p>%c可以设置样式属性<br>    console.log(“my name is %c wang”,”font-size:20px;color:red”)<br>1</p>
 
             </div>
             <hr/>
@@ -597,6 +637,45 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/2020/05/28/node.js-zhu-ce/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="node.js 注册">
+                        
+                        <span class="card-title">node.js 注册</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            node.js+mysql用户的注册登录验证下面代码实现的功能是：用node.js连接mysql实现用户的注册和登录，这里主要实现的是后端的验证代码，前端显示部分没具体写出。
+整个程序的流程是这样的：
+1.首先建立数据库reji，数据表us
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/2020/05/28/ye-wu/">
                     <div class="card-image">
                         
@@ -613,9 +692,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -635,48 +714,6 @@
                         <span class="chip bg-color">业务</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/04/29/download/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="download">
-                        
-                        <span class="card-title">download</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            下载
-（github项目）一个Python小工具，可以让你迅速下载下载大多主流网站上的视频、图片及音频。包括你知道的大部分网站，比如B站，爱奇艺，斗鱼，网易云等等，应有尽有。它就是一款Python小程序，名叫you-get。https://
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/download/" class="post-category">
-                                    download
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>

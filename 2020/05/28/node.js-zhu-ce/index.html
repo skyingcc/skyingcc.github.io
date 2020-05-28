@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="sumiao, null">
+    <meta name="keywords" content="node.js 注册, null">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>sumiao | null</title>
+    <title>node.js 注册 | null</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.0/css/all.css">
@@ -267,12 +267,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">sumiao</h1>
+                    <h1 class="description center-align post-title">node.js 注册</h1>
                 </div>
             </div>
         </div>
@@ -401,7 +401,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-29
+                    2020-05-28
                 </div>
                 
 
@@ -417,45 +417,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>###铅笔画<br><img src="https://upload-images.jianshu.io/upload_images/2655938-303a7dccb661e129.jpg" alt=""></p>
-<hr>
-<hr>
-<p><strong>===============================</strong></p>
-<h3 id="手账水彩画"><a href="#手账水彩画" class="headerlink" title="手账水彩画"></a>手账水彩画</h3><ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-6a2fc5635e54612b.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-39e1c426cd4ecbfd.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-6c553dc50317ef66.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-122bdb93a2626d2a.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-30f4eb2765492a9d.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-dc1ca677f561f1fd.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-51d1bf2fcd092fd5.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-78ed03366dda167d.jpg" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="https://upload-images.jianshu.io/upload_images/1760729-24756ff6a142c8ab.jpg" alt=""></li>
-</ul>
+                <p>node.js+mysql用户的注册登录验证<br>下面代码实现的功能是：用node.js连接mysql实现用户的注册和登录，这里主要实现的是后端的验证代码，前端显示部分没具体写出。</p>
+<p>整个程序的流程是这样的：</p>
+<p>1.首先建立数据库reji，数据表user，user表中有account（主键）password和name三个</p>
+<p>2.用户进入注册界面，用户输入要注册的账号和密码，前端把用户输入的信息发送给后端，后端对数据进行判断（查询数据库中是否有这个帐号），如果还未注册就允许注册同时把帐号密码和名称写入数据库中并给前端返回1，如果已经注册了就不再允许注册并给前端返回0</p>
+<p>2用户进入登录界面，用户输入要登录的账号和密码，前面把用户输入的信息发送给后端，后端对数据进行判断（查询这个帐号对应的密码是否与用户输入的密码相符），如果查询到的密码不符则登录失败后端给前面返回0，如果查询到的密码与用户输入的密码相符后端给前面返回1.</p>
+<p>后端部分代码：</p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>69<br>70<br>71<br>72<br>73<br>74<br>75<br>76<br>77<br>78<br>79<br>80<br>81<br>82<br>83<br>84<br>85<br>86<br>87<br>88<br>89<br>90<br>var mysql  = require(‘mysql’);  //导入mysql包</p>
+<p>var connection = mysql.createConnection({<br>  host     : ‘localhost’,<br>  user     : ‘root’,<br>  password : ‘123456’,<br>  port: ‘3306’,<br>  database: ‘reji’<br>});</p>
+<p>connection.connect();</p>
+<p>var express = require(‘express’);<br>var app = express();</p>
+<p>app.use(express.static(‘public’));<br> //参数里为’/‘则是默认打开页面<br>app.get(‘/‘, function (req, res) {<br>   res.sendFile( __dirname + “/“ + “index.html” );<br>})</p>
+<p>app.get(‘/login’,function (req,res) {<br>    var response = {<br>       “account”:req.query.account,<br>       “password”:req.query.password,<br>   };<br>   var selectSQL = “select account,password from user where account = ‘“+req.query.account+”‘ and password = ‘“+req.query.password+”‘“;<br>   //var selectSQL = “select password from user where account=’”+req.query.account+”‘“;<br>   var  addSqlParams = [req.query.account,req.query.password];<br>      connection.query(selectSQL,function (err, result) {<br>        if(err){<br>         console.log(‘[login ERROR] - ‘,err.message);<br>         return;<br>        }<br>        //console.log(result);<br>        if(result==’’)<br>        {<br>            console.log(“帐号密码错误”);<br>            res.end(“0”);//如果登录失败就给客户端返回0，<br>        }<br>        else<br>        {<br>            console.log(“OK”);<br>            res.end(“1”);//如果登录成就给客户端返回1<br>        }<br>});<br>   console.log(response);<br>   //res.end(JSON.stringify(response));<br>})</p>
+<p>app.get(‘/register.html’, function (req, res) {<br>   res.sendFile( __dirname + “/“ + “register.html” );<br>})</p>
+<p>//注册模块<br>var  addSql = ‘INSERT INTO user(account,password,name) VALUES(?,?,?)’;</p>
+<p>app.get(‘/process_get’, function (req, res) {</p>
+<p>   // 输出 JSON 格式<br>   var response = {<br>       “account”:req.query.account,<br>       “password”:req.query.password,<br>       “name”:req.query.name<br>   };<br>   var  addSqlParams = [req.query.account,req.query.password,req.query.name];<br>   connection.query(addSql,addSqlParams,function (err, result) {<br>        if(err){<br>         console.log(‘[INSERT ERROR] - ‘,err.message);<br>         res.end(“0”);//如果注册失败就给客户端返回0<br>         return;//如果失败了就直接return不会继续下面的代码<br>        }<br>        res.end(“1”);//如果注册成功就给客户端返回1<br>        console.log(“OK”);<br>});<br>   console.log(response);<br>   //res.end(JSON.stringify(response));<br>})</p>
+<p>var server = app.listen(3000, function () {</p>
+<p>  var host = server.address().address<br>  var port = server.address().port</p>
+<p>  console.log(“应用实例，访问地址为 http://%s:%s”, host, port)</p>
+<p>})<br>　　前端部分代码：index.html  </p>
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</p>
+<html>
+<body>
+<form action="http://127.0.0.1:3000/login" method="GET">
+帐号: <input type="text" name="account">  <br>
+密码: <input type="text" name="password">
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>
+　　register.html
+
+<p>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11</p>
+<html>
+<body>
+<form action="http://127.0.0.1:3000/process_get" method="GET">
+帐号: <input type="text" name="account">  <br>
+
+<p>密码: <input type="text" name="password"><br><br>姓名: <input type="text" name="name"><br><input type="submit" value="Submit"></p>
+</form>
+</body>
+</html>
+　　运行结果：首先是打开服务器
+
+
+
+<p>在浏览器中输入127.0.0.1：3000 会跳出index.html的页面</p>
+<p>应为我们在index.html中没有加上注册按钮所以，想进入注册页面需要我们手动去查看，在浏览器网址输入栏中输入127.0.0.1:3000/resiger.html  即可进入注册页面</p>
+<p>原文地址：<a href="https://www.cnblogs.com/wuyepeng/p/9995375.html" target="_blank" rel="noopener">https://www.cnblogs.com/wuyepeng/p/9995375.html</a></p>
+<p>以上是mysql的<br>以下是mongodb的<br><a href="https://segmentfault.com/a/1190000010397035" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010397035</a><br>均是2017年的文章，<br>可以用</p>
 
             </div>
             <hr/>
@@ -635,26 +646,25 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/29/python-pa-qu/">
+                <a href="/2020/05/29/ruan-jian-fen-lei/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="python爬取">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="软件分类">
                         
-                        <span class="card-title">python爬取</span>
+                        <span class="card-title">软件分类</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ####抓取淘宝 MM 照片
-http://www.voidcn.com/article/p-fimqilly-bnw.html
-####python做网站 （用 tornado 做网站）http://www.voidcn.com/arti
+                            破解类软件分类https://down.52pojie.cn/https://down.52pojie.cn/Tools/ 
+【Android Tools】                  安卓程序逆向所用到的相关工具【Debuggers
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
                         </span>
                         <span class="publish-author">
                             
@@ -663,6 +673,14 @@ http://www.voidcn.com/article/p-fimqilly-bnw.html
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%80%86%E5%90%91/">
+                        <span class="chip bg-color">逆向</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -674,26 +692,25 @@ http://www.voidcn.com/article/p-fimqilly-bnw.html
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/29/liang-qi/">
+                <a href="/2020/05/28/console-liu-lan-qi-kong-zhi-tai-js-cao-zuo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="惊奇">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="console-浏览器控制台js操作">
                         
-                        <span class="card-title">惊奇</span>
+                        <span class="card-title">console-浏览器控制台js操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            全世界收入情况https://www.gapminder.org/dollar-street/matrix?lang=zh-CN&amp;lowIncome=16&amp;highIncome=10810
-
-https://www.gapm
+                            进入console：直接进入：按下Option + Command + J（Mac）或者Ctrl + Shift + J（Windows / Linux）
+进入控制台以后，就可以在提示符后输入代码，然后按Enter键，代码就会执行。如果按S
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-28
                             </span>
                         <span class="publish-author">
                             
@@ -801,54 +818,6 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='list'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='false'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
-    
     <div class="container row center-align" style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
@@ -936,6 +905,20 @@ $(function () {
     <!-- Baidu Analytics -->
 
     <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
     
     <script src="/libs/others/clicklove.js" async="async"></script>
