@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="shell, null">
+    <meta name="keywords" content="download, null">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>shell | null</title>
+    <title>download | null</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.0/css/all.css">
@@ -267,12 +267,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">shell</h1>
+                    <h1 class="description center-align post-title">download</h1>
                 </div>
             </div>
         </div>
@@ -387,13 +387,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/shell/">
-                                <span class="chip bg-color">shell</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -421,441 +417,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="18个Awk实战案例精讲"><a href="#18个Awk实战案例精讲" class="headerlink" title="18个Awk实战案例精讲"></a>18个Awk实战案例精讲</h2><p>有些比较经典，有些比较具有代表性</p>
-<p>###插入几个新字段<br>在”a b c d”的b后面插入3个字段e f g。</p>
-<pre><code>echo a b c d|awk &#39;{$3=&quot;e f g &quot;$3}1&#39;</code></pre><p>###格式化空白</p>
-<pre><code>      aaaa        bbb     ccc     
-   bbb     aaa ccc    
-ddd       fff             eee gg hh ii jj</code></pre><p>移除每行的前缀、后缀空白，并将各部分左对齐。 </p>
-<pre><code>awk &#39;BEGIN{OFS=&quot;\t&quot;}{$1=$1;print}&#39; a.txt</code></pre><p>执行结果：</p>
-<pre><code>aaaa    bbb     ccc
-bbb     aaa     ccc
-ddd     fff     eee     gg      hh      ii      jj</code></pre><p>###筛选IPv4地址<br>从ifconfig命令的结果中筛选出除了lo网卡外的所有IPv4地址。</p>
-<pre><code>- 1.法一：
-ifconfig | awk &#39;/inet / &amp;&amp; !($2 ~ /^127/){print $2}&#39;
-
-按段落读取
-- 2.法二：
-ifconfig | awk &#39;BEGIN{RS=&quot;&quot;}!/lo/{print $6}&#39;
-
-- 3.法三：
-ifconfig |\
-awk &#39;
-  BEGIN{RS=&quot;&quot;;FS=&quot;\n&quot;}
-  !/lo/{$0=$2;FS=&quot; &quot;;$0=$0;print $2}
-&#39; </code></pre><p>###读取.ini配置文件中的某段<br>ini文件内容如下：</p>
-<pre><code>[base]
-name=os_repo
-baseurl=https://xxx/centos/$releasever/os/$basearch
-gpgcheck=0
-
-enable=1
-
-[mysql]
-name=mysql_repo
-baseurl=https://xxx/mysql-repo/yum/mysql-5.7-community/el/$releasever/$basearch
-
-gpgcheck=0
-enable=1
-
-[epel]
-name=epel_repo
-baseurl=https://xxx/epel/$releasever/$basearch
-gpgcheck=0
-enable=1
-[percona]
-name=percona_repo
-baseurl = https://xxx/percona/release/$releasever/RPMS/$basearch
-enabled = 1
-gpgcheck = 0</code></pre><p>awk筛选代码如下：</p>
-<pre><code>awk &#39;
-  index($0,&quot;[mysql]&quot;){
-    print;
-    while( (getline)&gt;0 ){
-      if(/\[.*\]/){ exit }
-      print
-    }
-}&#39; a.txt</code></pre><p>###根据某字段去重<br>去掉uid=xxx重复的行。</p>
-<pre><code>2019-01-13_12:00_index?uid=123
-2019-01-13_13:00_index?uid=123
-2019-01-13_14:00_index?uid=333
-2019-01-13_15:00_index?uid=9710
-2019-01-14_12:00_index?uid=123
-2019-01-14_13:00_index?uid=123
-2019-01-15_14:00_index?uid=333
-2019-01-16_15:00_index?uid=9710</code></pre><p>代码：</p>
-<pre><code>awk -F&quot;?&quot; &#39;!arr[$2]++{print}&#39; a.txt</code></pre><p>结果：</p>
-<pre><code>2019-01-13_12:00_index?uid=123
-2019-01-13_14:00_index?uid=333
-2019-01-13_15:00_index?uid=9710</code></pre><p>###次数统计<br>假设有如下文件内容，统计每一行出现的次数：</p>
-<pre><code>portmapper
-portmapper
-portmapper
-portmapper
-portmapper
-portmapper
-status
-status
-mountd
-mountd
-mountd
-mountd
-mountd
-mountd
-nfs
-nfs
-nfs_acl
-nfs
-nfs
-nfs_acl
-nlockmgr
-nlockmgr
-nlockmgr
-nlockmgr
-nlockmgr
-awk代码如下：</code></pre><p>代码：</p>
-<pre><code>awk &#39;{a[$1]++}END{for(i in arr){print a[i],i}}&#39; a.txt</code></pre><p>###统计TCP连接状态数量<br>如下tcp连接状态信息：</p>
-<pre><code>$ netstat -tnap
-Proto Recv-Q Send-Q Local Address   Foreign Address  State       PID/Program name
-tcp        0      0 0.0.0.0:22      0.0.0.0:*        LISTEN      1139/sshd
-tcp        0      0 127.0.0.1:25    0.0.0.0:*        LISTEN      2285/master
-tcp        0     96 192.168.2.17:22 192.168.2.1:2468 ESTABLISHED 87463/sshd: root@pt
-tcp        0      0 192.168.2017:22 192.168.201:5821 ESTABLISHED 89359/sshd: root@no
-tcp6       0      0 :::3306         :::*             LISTEN      2289/mysqld
-tcp6       0      0 :::22           :::*             LISTEN      1139/sshd
-tcp6       0      0 ::1:25          :::*             LISTEN      2285/master</code></pre><p>统计希望得到的结果：</p>
-<pre><code>5: LISTEN
-2: ESTABLISHED</code></pre><p>代码：</p>
-<pre><code>netstat -tnap |\
-awk &#39;
-  /^tcp/{arr[$6]++}
-  END{
-    for(state in arr){
-      print arr[state] &quot;: &quot; state
-    }
-  }
-&#39;</code></pre><p>一行式：</p>
-<pre><code>netstat -tna | awk &#39;/^tcp/{arr[$6]++}END{for(state in arr){print arr[state] &quot;: &quot; state}}&#39;
-netstat -tna | /usr/bin/grep &#39;tcp&#39; | awk &#39;{print $6}&#39; | sort | uniq -c</code></pre><p>###统计日志中各IP访问非200状态码的次数<br>日志示例数据：</p>
-<pre><code>obots.txt HTTP/1.1&quot; 301 169 </code></pre><p>统计非200状态码的IP，并取次数最多的前10个IP。</p>
-<pre><code># 法一
-awk &#39;
-  $8!=200{arr[$1]++}
-  END{
-    for(i in arr){print arr[i],i}
-  }
-&#39; access.log | sort -k1nr | head -n 10
-
-# 法二：
-awk &#39;
-  $8!=200{arr[$1]++}
-  END{
-    PROCINFO[&quot;sorted_in&quot;]=&quot;@val_num_desc&quot;;
-    for(i in arr){
-      if(cnt++==10){exit}
-      print arr[i],i
-    }
-}&#39; access.log</code></pre><p>###统计独立IP<br>假设有如下文件内容，总共4个字段，第一个字段是URL，第二个字段是访问IP，第三个字段是访问时间，第四个字段是访问人。</p>
-<pre><code>a.com.cn|202.109.134.23|2015-11-20 20:34:43|guest
-b.com.cn|202.109.134.23|2015-11-20 20:34:48|guest
-c.com.cn|202.109.134.24|2015-11-20 20:34:48|guest
-a.com.cn|202.109.134.23|2015-11-20 20:34:43|guest
-a.com.cn|202.109.134.24|2015-11-20 20:34:43|guest
-b.com.cn|202.109.134.25|2015-11-20 20:34:48|guest</code></pre><p>需求：统计每个URL的独立访问IP有多少个(去重)，并且要为每个URL保存一个对应的文件，得到的结果类似：</p>
-<pre><code>a.com.cn  2
-b.com.cn  2
-c.com.cn  1</code></pre><p>并且有三个对应的文件：</p>
-<pre><code>a.com.cn.txt
-b.com.cn.txt
-c.com.cn.txt</code></pre><p>代码：</p>
-<pre><code>BEGIN{
-  FS=&quot;|&quot;
-}
-
-!arr[$1,$2]++{
-  arr1[$1]++
-}
-
-END{
-  for(i in arr1){
-    print i,arr1[i] &gt;(i&quot;.txt&quot;)
-  }
-}</code></pre><p>###处理字段缺失的数据<br>有如下文件内容，其中几个字段是缺失数据的：</p>
-<pre><code>ID  name    gender  age  email          phone
-1   Bob     male    28   abc@qq.com     18023394012
-2   Alice   female  24   def@gmail.com  18084925203
-3   Tony    male    21                  17048792503
-4   Kevin   male    21   bbb@189.com    17023929033
-5   Alex    male    18   ccc@xyz.com    18185904230
-6   Andy    female       ddd@139.com    18923902352
-7   Jerry   female  25   exdsa@189.com  18785234906
-8   Peter   male    20   bax@qq.com     17729348758
-9   Steven          23   bc@sohu.com    15947893212
-10  Bruce   female  27   bcbd@139.com   13942943905</code></pre><p>当字段缺失时，直接使用FS划分字段来处理会非常棘手。gawk为了解决这种特殊需求，提供了FIELDWIDTHS变量。</p>
-<p>FIELDWIDTH可以按照字符数量划分字段。</p>
-<pre><code>awk &#39;{print $4}&#39; FIELDWIDTHS=&quot;2 2:6 2:6 2:3 2:13 2:11&quot; a.txt</code></pre><p>此处FIELDWIDTHS变量的值表示的含义：</p>
-<ul>
-<li>去两个字符作为第一个字段的内容</li>
-<li>跳过2个字符后取6个字符作为第二个字段的内容</li>
-<li>跳过2个字符后取6个字符作为第三个字段的内容</li>
-<li>跳过2个字符后取3个字符作为第四个字段的内容</li>
-<li>跳过2个字符后取13个字符作为第五个字段的内容</li>
-<li>跳过2个字符后取11个字符作为第六个字段的内容</li>
-<li>这样按给定字符数量取字段数据后，即使字段缺失，也不会影响其它字段的数据。</li>
-</ul>
-<p>###处理字段中包含了字段分隔符的数据<br>下面是CSV文件中的一行，该CSV文件以逗号分隔各个字段。</p>
-<pre><code>Robbins,Arnold,&quot;1234 A Pretty Street, NE&quot;,MyTown,MyState,12345-6789,USA</code></pre><p>需求：取得第三个字段”1234 A Pretty Street, NE”。</p>
-<p>当字段中包含了字段分隔符时，直接使用FS划分字段来处理会非常棘手。gawk为了解决这种特殊需求，提供了FPAT变量。</p>
-<p>FPAT可以收集正则匹配的结果，并将它们保存在各个字段中（就像grep匹配成功的部分会加颜色显示，而使用FPAT划分字段，则是将匹配成功的部分保存在字段$1 $2 $3…中）。</p>
-<pre><code>echo &#39;Robbins,Arnold,&quot;1234 A Pretty Street, NE&quot;,MyTown,MyState,12345-6789,USA&#39; |\
-awk &#39;BEGIN{FPAT=&quot;[^,]+|\&quot;.*\&quot;&quot;}{print $1,$3}&#39;</code></pre><p>取字段中指定字符数量<br>给定数据：</p>
-<pre><code>16  001agdcdafasd
-16  002agdcxxxxxx
-23  001adfadfahoh
-23  001fsdadggggg</code></pre><p>希望得到：</p>
-<pre><code>16  001
-16  002
-23  001
-23  002</code></pre><p>awk的代码：</p>
-<pre><code>awk &#39;{print $1,substr($2,1,3)}&#39;
-awk &#39;BEGIN{FIELDWIDTH=&quot;2 2:3&quot;}{print $1,$2}&#39; a.txt</code></pre><p>###行列转换<br>给定数据：</p>
-<pre><code>name age
-alice 21
-ryan 30</code></pre><p>希望转换后得到：</p>
-<pre><code>name alice ryan
-age 21 30</code></pre><p>awk代码：</p>
-<pre><code>awk &#39;
-  {
-    for(i=1;i&lt;=NF;i++){
-      if(!(i in arr)){
-        arr[i]=$i
-      } else {
-        arr[i]=arr[i]&quot; &quot;$i
-      }
-    }
-  }
-    END{
-    for(i=1;i&lt;=NF;i++){
-      print arr[i]
-    }
-    }
-&#39; a.txt</code></pre><p>###行列转换2<br>文件内容：</p>
-<pre><code>74683 1001
-74683 1002
-74683 1011
-74684 1000
-74684 1001
-74684 1002
-74685 1001
-74685 1011
-74686 1000
-....
-100085 1000
-100085 1001</code></pre><p>文件就两列，希望处理成：</p>
-<pre><code>74683 1001 1002 1011
-74684 1000 1001 1002
-...</code></pre><p>即，只要第一列数字相同，就把它们的第二列放一行上，中间空格分开。</p>
-<p>代码：</p>
-<pre><code>{
-  if($1 in arr){
-    arr[$1] = arr[$1]&quot; &quot;$2
-  } else {
-    arr[$1] = $2
-  }
-
-}
-
-END{
-  for(i in arr){
-    printf &quot;%s %s\n&quot;,i,arr[i]
-  }
-}</code></pre><p>###筛选给定时间范围内的日志<br>grep/sed/awk用正则去筛选日志时，如果要精确到小时、分钟、秒，则非常难以实现。</p>
-<p>但是awk提供了mktime()函数，它可以将时间转换成epoch时间值。</p>
-<pre><code># 2019-11-10 03:42:40转换成epoch
-$ awk &#39;BEGIN{print mktime(&quot;2019 11 10 03 42 40&quot;)}&#39;
-1573328560</code></pre><p>借此，可以取得日志中的时间字符串部分，再将它们的年、月、日、时、分、秒都取出来，然后放入mktime()构建成对应的epoch值。因为epoch值是数值，所以可以比较大小，从而决定时间的大小。</p>
-<p>下面strptime1()实现的是将2019-11-10T03:42:40+08:00格式的字符串转换成epoch值，然后和which_time比较大小即可筛选出精确到秒的日志。</p>
-<pre><code>BEGIN{
-  # 要筛选什么时间的日志，将其时间构建成epoch值
-  which_time = mktime(&quot;2019 11 10 03 42 40&quot;)
-}
-
-{
-  # 取出日志中的日期时间字符串部分
-  match($0,&quot;^.*\\[(.*)\\].*&quot;,arr)
-
-  # 将日期时间字符串转换为epoch值
-  tmp_time = strptime1(arr[1])
-
-  # 通过比较epoch值来比较时间大小
-  if(tmp_time &gt; which_time){print}
-}
-
-# 构建的时间字符串格式为：&quot;2019-11-10T03:42:40+08:00&quot;
-function strptime1(str   ,arr,Y,M,D,H,m,S) {
-  patsplit(str,arr,&quot;[0-9]{1,4}&quot;)
-  Y=arr[1]
-  M=arr[2]
-  D=arr[3]
-  H=arr[4]
-  m=arr[5]
-  S=arr[6]
-  return mktime(sprintf(&quot;%s %s %s %s %s %s&quot;,Y,M,D,H,m,S))
-}</code></pre><p>下面strptime2()实现的是将10/Nov/2019:23:53:44+08:00格式的字符串转换成epoch值，然后和which_time比较大小即可筛选出精确到秒的日志。</p>
-<pre><code>BEGIN{
-  which_time = mktime(&quot;2019 11 10 03 42 40&quot;)
-}
-
-{
-  match($0,&quot;^.*\\[(.*)\\].*&quot;,arr)
-
-  tmp_time = strptime2(arr[1])
-
-  if(tmp_time &gt; which_time){
-    print 
-  }
-}
-
-# 构建的时间字符串格式为：&quot;10/Nov/2019:23:53:44+08:00&quot;
-function strptime2(str   ,dt_str,arr,Y,M,D,H,m,S) {
-  dt_str = gensub(&quot;[/:+]&quot;,&quot; &quot;,&quot;g&quot;,str)
-  # dt_sr = &quot;10 Nov 2019 23 53 44 08 00&quot;
-  split(dt_str,arr,&quot; &quot;)
-  Y=arr[3]
-  M=mon_map(arr[2])
-  D=arr[1]
-  H=arr[4]
-  m=arr[5]
-  S=arr[6]
-  return mktime(sprintf(&quot;%s %s %s %s %s %s&quot;,Y,M,D,H,m,S))
-}
-
-function mon_map(str   ,mons){
-  mons[&quot;Jan&quot;]=1
-  mons[&quot;Feb&quot;]=2
-  mons[&quot;Mar&quot;]=3
-  mons[&quot;Apr&quot;]=4
-  mons[&quot;May&quot;]=5
-  mons[&quot;Jun&quot;]=6
-  mons[&quot;Jul&quot;]=7
-  mons[&quot;Aug&quot;]=8
-  mons[&quot;Sep&quot;]=9
-  mons[&quot;Oct&quot;]=10
-  mons[&quot;Nov&quot;]=11
-  mons[&quot;Dec&quot;]=12
-  return mons[str]
-}</code></pre><p>###去掉/**/中间的注释<br>示例数据：</p>
-<pre><code>/*AAAAAAAAAA*/
-1111
-222
-
-/*aaaaaaaaa*/
-32323
-12341234
-12134 /*bbbbbbbbbb*/ 132412
-
-14534122
-/*
-    cccccccccc
-*/
-xxxxxx /*ddddddddddd
-    cccccccccc
-    eeeeeee
-*/ yyyyyyyy
-5642341</code></pre><p>awk代码：</p>
-<pre><code># 注释内的行
-/\/\*/{
-  # 同行有&quot;*/&quot;
-  if(/\*\//){
-    print gensub(&quot;(.*)/\\*.*\\*/(.*)&quot;,&quot;\\1\\2&quot;,&quot;g&quot;,$0)
-  } else {
-  # 同行没有&quot;*/&quot;
-
-    # 1.去掉/*行后的内容
-    print gensub(&quot;(.*)/\\*.*&quot;,&quot;\\1&quot;,&quot;g&quot;,$0)
-
-    # 2.继续读取，直到出现*/，并去掉中间的所有数据
-    while( ( getline ) &gt; 0 ){
-      # 出现了*/行
-      if(/\*\//){
-        print gensub(&quot;.*\\*/(.*)&quot;,&quot;\\1&quot;,&quot;g&quot;,$0)
-      }
-    }
-  }
-}
-# 非注释内容
-!/\/\*/{print}</code></pre><p>###前后段落关系判断<br>从如下类型的文件中，找出false段的前一段为i-order的段，同时输出这两段。</p>
-<pre><code>2019-09-12 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    &#39;http://192.168.100.20:2800/api/payment/i-order&#39;,
-  ],
-]
-2019-09-12 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    false,
-  ],
-]
-2019-09-21 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    &#39;http://192.168.100.20:2800/api/payment/i-order&#39;,
-  ],
-]
-2019-09-21 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    &#39;http://192.168.100.20:2800/api/payment/i-user&#39;,
-  ],
-]
-2019-09-17 18:34:37 [-][
-  &#39;data&#39; =&gt; [
-    false,
-  ],
-]</code></pre><p>awk代码：</p>
-<pre><code>BEGIN{
-  RS=&quot;]\n&quot;
-  ORS=RS
-}
-{
-  if(/false/ &amp;&amp; prev ~ /i-order/){
-    print tmp
-    print
-  }
-  tmp=$0
-}</code></pre><p>###两个文件的处理<br>有两个文件file1和file2，这两个文件格式都是一样的。</p>
-<p>需求：先把文件2的第五列删除，然后用文件2的第一列减去文件一的第一列，把所得结果对应的贴到原来第五列的位置，请问这个脚本该怎么编写？</p>
-<pre><code>file1：
-50.481  64.634  40.573  1.00  0.00
-51.877  65.004  40.226  1.00  0.00
-52.258  64.681  39.113  1.00  0.00
-52.418  65.846  40.925  1.00  0.00
-49.515  65.641  40.554  1.00  0.00
-49.802  66.666  40.358  1.00  0.00
-48.176  65.344  40.766  1.00  0.00
-47.428  66.127  40.732  1.00  0.00
-51.087  62.165  40.940  1.00  0.00
-52.289  62.334  40.897  1.00  0.00
-file2：
-48.420  62.001  41.252  1.00  0.00
-45.555  61.598  41.361  1.00  0.00
-45.815  61.402  40.325  1.00  0.00
-44.873  60.641  42.111  1.00  0.00
-44.617  59.688  41.648  1.00  0.00
-44.500  60.911  43.433  1.00  0.00
-43.691  59.887  44.228  1.00  0.00
-43.980  58.629  43.859  1.00  0.00
-42.372  60.069  44.032  1.00  0.00
-43.914  59.977  45.551  1.00  0.00</code></pre><ul>
-<li>方法一：<br>`awk ‘{<pre><code>f1 = $1
-if( (getline &lt;&quot;file2&quot;) &gt;= 0 ){
-  $5 = $1 - f1
-  print $0
-}</code></pre>  }’ file1`     </li>
-</ul>
-<ul>
-<li>方法二：<br><code>awk &#39;
-NR==FNR{arr[FNR]=$1}
-NR!=FNR{$5=$1-arr[FNR];print}
-&#39; file1 file2</code></li>
-</ul>
+                <p>看下载</p>
 
             </div>
             <hr/>
@@ -868,11 +430,7 @@ NR!=FNR{$5=$1-arr[FNR];print}
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/shell/">
-                                    <span class="chip bg-color">shell</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1038,58 +596,40 @@ NR!=FNR{$5=$1-arr[FNR];print}
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/04/29/zi-yuan-lian-jie/">
+                <a href="/download/index.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="资源包">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="download">
                         
-                        <span class="card-title">资源包</span>
+                        <span class="card-title">download</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-精品软件合集：https://lanzous.com/b06rgikha
-
-黑仓：https://lanzous.com/u/wuzuowei
-
-资源查找：
-
-特殊资源fq： https://apkcombo.com/zh-cn/
-
+                            看下载
 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6/" class="post-category">
-                                    软件
-                                </a>
+                            <i class="fas fa-user fa-fw"></i>
                             
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6/">
-                        <span class="chip bg-color">软件</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -1097,48 +637,38 @@ NR!=FNR{$5=$1-arr[FNR];print}
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/25/hao-yong-wang-zhi/">
+                <a href="/download/index.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="好用网站">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="download">
                         
-                        <span class="card-title">好用网站</span>
+                        <span class="card-title">download</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习 | 找书籍 | 冷知识、黑科技|写代码|资源搜索|小工具|导航页:工具集|看视频|学设计|搞文档 |找图片
+                            看下载
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            skying
+                            
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%BD%91%E7%AB%99/">
-                        <span class="chip bg-color">网站</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">学习</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>

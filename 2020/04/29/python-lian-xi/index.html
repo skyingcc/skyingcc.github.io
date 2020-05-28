@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="shell, null">
+    <meta name="keywords" content="python-练习, null">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>shell | null</title>
+    <title>python-练习 | null</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.0/css/all.css">
@@ -267,12 +267,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">shell</h1>
+                    <h1 class="description center-align post-title">python-练习</h1>
                 </div>
             </div>
         </div>
@@ -387,16 +387,21 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/shell/">
-                                <span class="chip bg-color">shell</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/self-learning/" class="post-category">
+                                self-learning
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -421,441 +426,312 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="18个Awk实战案例精讲"><a href="#18个Awk实战案例精讲" class="headerlink" title="18个Awk实战案例精讲"></a>18个Awk实战案例精讲</h2><p>有些比较经典，有些比较具有代表性</p>
-<p>###插入几个新字段<br>在”a b c d”的b后面插入3个字段e f g。</p>
-<pre><code>echo a b c d|awk &#39;{$3=&quot;e f g &quot;$3}1&#39;</code></pre><p>###格式化空白</p>
-<pre><code>      aaaa        bbb     ccc     
-   bbb     aaa ccc    
-ddd       fff             eee gg hh ii jj</code></pre><p>移除每行的前缀、后缀空白，并将各部分左对齐。 </p>
-<pre><code>awk &#39;BEGIN{OFS=&quot;\t&quot;}{$1=$1;print}&#39; a.txt</code></pre><p>执行结果：</p>
-<pre><code>aaaa    bbb     ccc
-bbb     aaa     ccc
-ddd     fff     eee     gg      hh      ii      jj</code></pre><p>###筛选IPv4地址<br>从ifconfig命令的结果中筛选出除了lo网卡外的所有IPv4地址。</p>
-<pre><code>- 1.法一：
-ifconfig | awk &#39;/inet / &amp;&amp; !($2 ~ /^127/){print $2}&#39;
-
-按段落读取
-- 2.法二：
-ifconfig | awk &#39;BEGIN{RS=&quot;&quot;}!/lo/{print $6}&#39;
-
-- 3.法三：
-ifconfig |\
-awk &#39;
-  BEGIN{RS=&quot;&quot;;FS=&quot;\n&quot;}
-  !/lo/{$0=$2;FS=&quot; &quot;;$0=$0;print $2}
-&#39; </code></pre><p>###读取.ini配置文件中的某段<br>ini文件内容如下：</p>
-<pre><code>[base]
-name=os_repo
-baseurl=https://xxx/centos/$releasever/os/$basearch
-gpgcheck=0
-
-enable=1
-
-[mysql]
-name=mysql_repo
-baseurl=https://xxx/mysql-repo/yum/mysql-5.7-community/el/$releasever/$basearch
-
-gpgcheck=0
-enable=1
-
-[epel]
-name=epel_repo
-baseurl=https://xxx/epel/$releasever/$basearch
-gpgcheck=0
-enable=1
-[percona]
-name=percona_repo
-baseurl = https://xxx/percona/release/$releasever/RPMS/$basearch
-enabled = 1
-gpgcheck = 0</code></pre><p>awk筛选代码如下：</p>
-<pre><code>awk &#39;
-  index($0,&quot;[mysql]&quot;){
-    print;
-    while( (getline)&gt;0 ){
-      if(/\[.*\]/){ exit }
-      print
-    }
-}&#39; a.txt</code></pre><p>###根据某字段去重<br>去掉uid=xxx重复的行。</p>
-<pre><code>2019-01-13_12:00_index?uid=123
-2019-01-13_13:00_index?uid=123
-2019-01-13_14:00_index?uid=333
-2019-01-13_15:00_index?uid=9710
-2019-01-14_12:00_index?uid=123
-2019-01-14_13:00_index?uid=123
-2019-01-15_14:00_index?uid=333
-2019-01-16_15:00_index?uid=9710</code></pre><p>代码：</p>
-<pre><code>awk -F&quot;?&quot; &#39;!arr[$2]++{print}&#39; a.txt</code></pre><p>结果：</p>
-<pre><code>2019-01-13_12:00_index?uid=123
-2019-01-13_14:00_index?uid=333
-2019-01-13_15:00_index?uid=9710</code></pre><p>###次数统计<br>假设有如下文件内容，统计每一行出现的次数：</p>
-<pre><code>portmapper
-portmapper
-portmapper
-portmapper
-portmapper
-portmapper
-status
-status
-mountd
-mountd
-mountd
-mountd
-mountd
-mountd
-nfs
-nfs
-nfs_acl
-nfs
-nfs
-nfs_acl
-nlockmgr
-nlockmgr
-nlockmgr
-nlockmgr
-nlockmgr
-awk代码如下：</code></pre><p>代码：</p>
-<pre><code>awk &#39;{a[$1]++}END{for(i in arr){print a[i],i}}&#39; a.txt</code></pre><p>###统计TCP连接状态数量<br>如下tcp连接状态信息：</p>
-<pre><code>$ netstat -tnap
-Proto Recv-Q Send-Q Local Address   Foreign Address  State       PID/Program name
-tcp        0      0 0.0.0.0:22      0.0.0.0:*        LISTEN      1139/sshd
-tcp        0      0 127.0.0.1:25    0.0.0.0:*        LISTEN      2285/master
-tcp        0     96 192.168.2.17:22 192.168.2.1:2468 ESTABLISHED 87463/sshd: root@pt
-tcp        0      0 192.168.2017:22 192.168.201:5821 ESTABLISHED 89359/sshd: root@no
-tcp6       0      0 :::3306         :::*             LISTEN      2289/mysqld
-tcp6       0      0 :::22           :::*             LISTEN      1139/sshd
-tcp6       0      0 ::1:25          :::*             LISTEN      2285/master</code></pre><p>统计希望得到的结果：</p>
-<pre><code>5: LISTEN
-2: ESTABLISHED</code></pre><p>代码：</p>
-<pre><code>netstat -tnap |\
-awk &#39;
-  /^tcp/{arr[$6]++}
-  END{
-    for(state in arr){
-      print arr[state] &quot;: &quot; state
-    }
-  }
-&#39;</code></pre><p>一行式：</p>
-<pre><code>netstat -tna | awk &#39;/^tcp/{arr[$6]++}END{for(state in arr){print arr[state] &quot;: &quot; state}}&#39;
-netstat -tna | /usr/bin/grep &#39;tcp&#39; | awk &#39;{print $6}&#39; | sort | uniq -c</code></pre><p>###统计日志中各IP访问非200状态码的次数<br>日志示例数据：</p>
-<pre><code>obots.txt HTTP/1.1&quot; 301 169 </code></pre><p>统计非200状态码的IP，并取次数最多的前10个IP。</p>
-<pre><code># 法一
-awk &#39;
-  $8!=200{arr[$1]++}
-  END{
-    for(i in arr){print arr[i],i}
-  }
-&#39; access.log | sort -k1nr | head -n 10
-
-# 法二：
-awk &#39;
-  $8!=200{arr[$1]++}
-  END{
-    PROCINFO[&quot;sorted_in&quot;]=&quot;@val_num_desc&quot;;
-    for(i in arr){
-      if(cnt++==10){exit}
-      print arr[i],i
-    }
-}&#39; access.log</code></pre><p>###统计独立IP<br>假设有如下文件内容，总共4个字段，第一个字段是URL，第二个字段是访问IP，第三个字段是访问时间，第四个字段是访问人。</p>
-<pre><code>a.com.cn|202.109.134.23|2015-11-20 20:34:43|guest
-b.com.cn|202.109.134.23|2015-11-20 20:34:48|guest
-c.com.cn|202.109.134.24|2015-11-20 20:34:48|guest
-a.com.cn|202.109.134.23|2015-11-20 20:34:43|guest
-a.com.cn|202.109.134.24|2015-11-20 20:34:43|guest
-b.com.cn|202.109.134.25|2015-11-20 20:34:48|guest</code></pre><p>需求：统计每个URL的独立访问IP有多少个(去重)，并且要为每个URL保存一个对应的文件，得到的结果类似：</p>
-<pre><code>a.com.cn  2
-b.com.cn  2
-c.com.cn  1</code></pre><p>并且有三个对应的文件：</p>
-<pre><code>a.com.cn.txt
-b.com.cn.txt
-c.com.cn.txt</code></pre><p>代码：</p>
-<pre><code>BEGIN{
-  FS=&quot;|&quot;
-}
-
-!arr[$1,$2]++{
-  arr1[$1]++
-}
-
-END{
-  for(i in arr1){
-    print i,arr1[i] &gt;(i&quot;.txt&quot;)
-  }
-}</code></pre><p>###处理字段缺失的数据<br>有如下文件内容，其中几个字段是缺失数据的：</p>
-<pre><code>ID  name    gender  age  email          phone
-1   Bob     male    28   abc@qq.com     18023394012
-2   Alice   female  24   def@gmail.com  18084925203
-3   Tony    male    21                  17048792503
-4   Kevin   male    21   bbb@189.com    17023929033
-5   Alex    male    18   ccc@xyz.com    18185904230
-6   Andy    female       ddd@139.com    18923902352
-7   Jerry   female  25   exdsa@189.com  18785234906
-8   Peter   male    20   bax@qq.com     17729348758
-9   Steven          23   bc@sohu.com    15947893212
-10  Bruce   female  27   bcbd@139.com   13942943905</code></pre><p>当字段缺失时，直接使用FS划分字段来处理会非常棘手。gawk为了解决这种特殊需求，提供了FIELDWIDTHS变量。</p>
-<p>FIELDWIDTH可以按照字符数量划分字段。</p>
-<pre><code>awk &#39;{print $4}&#39; FIELDWIDTHS=&quot;2 2:6 2:6 2:3 2:13 2:11&quot; a.txt</code></pre><p>此处FIELDWIDTHS变量的值表示的含义：</p>
-<ul>
-<li>去两个字符作为第一个字段的内容</li>
-<li>跳过2个字符后取6个字符作为第二个字段的内容</li>
-<li>跳过2个字符后取6个字符作为第三个字段的内容</li>
-<li>跳过2个字符后取3个字符作为第四个字段的内容</li>
-<li>跳过2个字符后取13个字符作为第五个字段的内容</li>
-<li>跳过2个字符后取11个字符作为第六个字段的内容</li>
-<li>这样按给定字符数量取字段数据后，即使字段缺失，也不会影响其它字段的数据。</li>
+                <h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo -"></a>hexo -</h3><ul>
+<li>优化+花俏： <a href="https://www.liaofuzhan.com/posts/1599400735.html" target="_blank" rel="noopener">https://www.liaofuzhan.com/posts/1599400735.html</a></li>
 </ul>
-<p>###处理字段中包含了字段分隔符的数据<br>下面是CSV文件中的一行，该CSV文件以逗号分隔各个字段。</p>
-<pre><code>Robbins,Arnold,&quot;1234 A Pretty Street, NE&quot;,MyTown,MyState,12345-6789,USA</code></pre><p>需求：取得第三个字段”1234 A Pretty Street, NE”。</p>
-<p>当字段中包含了字段分隔符时，直接使用FS划分字段来处理会非常棘手。gawk为了解决这种特殊需求，提供了FPAT变量。</p>
-<p>FPAT可以收集正则匹配的结果，并将它们保存在各个字段中（就像grep匹配成功的部分会加颜色显示，而使用FPAT划分字段，则是将匹配成功的部分保存在字段$1 $2 $3…中）。</p>
-<pre><code>echo &#39;Robbins,Arnold,&quot;1234 A Pretty Street, NE&quot;,MyTown,MyState,12345-6789,USA&#39; |\
-awk &#39;BEGIN{FPAT=&quot;[^,]+|\&quot;.*\&quot;&quot;}{print $1,$3}&#39;</code></pre><p>取字段中指定字符数量<br>给定数据：</p>
-<pre><code>16  001agdcdafasd
-16  002agdcxxxxxx
-23  001adfadfahoh
-23  001fsdadggggg</code></pre><p>希望得到：</p>
-<pre><code>16  001
-16  002
-23  001
-23  002</code></pre><p>awk的代码：</p>
-<pre><code>awk &#39;{print $1,substr($2,1,3)}&#39;
-awk &#39;BEGIN{FIELDWIDTH=&quot;2 2:3&quot;}{print $1,$2}&#39; a.txt</code></pre><p>###行列转换<br>给定数据：</p>
-<pre><code>name age
-alice 21
-ryan 30</code></pre><p>希望转换后得到：</p>
-<pre><code>name alice ryan
-age 21 30</code></pre><p>awk代码：</p>
-<pre><code>awk &#39;
-  {
-    for(i=1;i&lt;=NF;i++){
-      if(!(i in arr)){
-        arr[i]=$i
-      } else {
-        arr[i]=arr[i]&quot; &quot;$i
-      }
-    }
-  }
-    END{
-    for(i=1;i&lt;=NF;i++){
-      print arr[i]
-    }
-    }
-&#39; a.txt</code></pre><p>###行列转换2<br>文件内容：</p>
-<pre><code>74683 1001
-74683 1002
-74683 1011
-74684 1000
-74684 1001
-74684 1002
-74685 1001
-74685 1011
-74686 1000
-....
-100085 1000
-100085 1001</code></pre><p>文件就两列，希望处理成：</p>
-<pre><code>74683 1001 1002 1011
-74684 1000 1001 1002
-...</code></pre><p>即，只要第一列数字相同，就把它们的第二列放一行上，中间空格分开。</p>
-<p>代码：</p>
-<pre><code>{
-  if($1 in arr){
-    arr[$1] = arr[$1]&quot; &quot;$2
-  } else {
-    arr[$1] = $2
-  }
+<p>41-字符串格式化<br>    “%s is %s years old” % (‘bob’, 23)  # 常用<br>    “%s is %d years old” % (‘bob’, 23)  # 常用<br>    “%s is %d years old” % (‘bob’, 23.5)  # %d是整数 常用<br>    “%s is %f years old” % (‘bob’, 23.5)<br>    “%s is %5.2f years old” % (‘bob’, 23.5)  # %5.2f是宽度为5，2位小数<br>    “97 is %c” % 97<br>    “11 is %#o” % 11  # %#o表示有前缀的8进制<br>    “11 is %#x” % 11<br>    “%10s%5s” % (‘name’, ‘age’)  # %10s表示总宽度为10，右对齐, 常用<br>    “%10s%5s” % (‘bob’, 25)<br>    “%10s%5s” % (‘alice’, 23)<br>    “%-10s%-5s” % (‘name’, ‘age’)  # %-10s表示左对齐, 常用<br>    “%-10s%-5s” % (‘bob’, 25)<br>    “%10d” % 123<br>    “%010d” % 123</p>
+<pre><code>&quot;{} is {} years old&quot;.format(&#39;bob&#39;, 25)
+&quot;{1} is {0} years old&quot;.format(25, &#39;bob&#39;)
+&quot;{:&lt;10}{:&lt;8}&quot;.format(&#39;name&#39;, &#39;age&#39;)</code></pre><p>42-shutil模块常用方法<br>    import shutil</p>
+<pre><code>with open(&#39;/etc/passwd&#39;, &#39;rb&#39;) as sfobj:
+    with open(&#39;/tmp/mima.txt&#39;, &#39;wb&#39;) as dfobj:
+        shutil.copyfileobj(sfobj, dfobj) # 拷贝文件对象
 
-}
+shutil.copyfile(&#39;/etc/passwd&#39;, &#39;/tmp/mima2.txt&#39;)
+shutil.copy(&#39;/etc/shadow&#39;, &#39;/tmp/&#39;)  # cp /etc/shadow /tmp/
+shutil.copy2(&#39;/etc/shadow&#39;, &#39;/tmp/&#39;)  # cp -p /etc/shadow /tmp/
+shutil.move(&#39;/tmp/mima.txt&#39;, &#39;/var/tmp/&#39;)  # mv /tmp/mima.txt /var/tmp/
+shutil.copytree(&#39;/etc/security&#39;, &#39;/tmp/anquan&#39;) # cp -r /etc/security /tmp/anquan
+shutil.rmtree(&#39;/tmp/anquan&#39;)  # rm -rf /tmp/anquan
+# 将mima2.txt的权限设置成与/etc/shadow一样
+shutil.copymode(&#39;/etc/shadow&#39;, &#39;/tmp/mima2.txt&#39;)
+# 将mima2.txt的元数据设置成与/etc/shadow一样
+# 元数据使用stat /etc/shadow查看
+shutil.copystat(&#39;/etc/shadow&#39;, &#39;/tmp/mima2.txt&#39;)
+shutil.chown(&#39;/tmp/mima2.txt&#39;, user=&#39;zhangsan&#39;, group=&#39;zhangsan&#39;)</code></pre><p>43-练习：生成文本文件<br>    import os</p>
+<pre><code>def get_fname():
+    while True:
+        fname = input(&#39;filename: &#39;)
+        if not os.path.exists(fname):
+            break
+        print(&#39;%s already exists. Try again&#39; % fname)
 
-END{
-  for(i in arr){
-    printf &quot;%s %s\n&quot;,i,arr[i]
-  }
-}</code></pre><p>###筛选给定时间范围内的日志<br>grep/sed/awk用正则去筛选日志时，如果要精确到小时、分钟、秒，则非常难以实现。</p>
-<p>但是awk提供了mktime()函数，它可以将时间转换成epoch时间值。</p>
-<pre><code># 2019-11-10 03:42:40转换成epoch
-$ awk &#39;BEGIN{print mktime(&quot;2019 11 10 03 42 40&quot;)}&#39;
-1573328560</code></pre><p>借此，可以取得日志中的时间字符串部分，再将它们的年、月、日、时、分、秒都取出来，然后放入mktime()构建成对应的epoch值。因为epoch值是数值，所以可以比较大小，从而决定时间的大小。</p>
-<p>下面strptime1()实现的是将2019-11-10T03:42:40+08:00格式的字符串转换成epoch值，然后和which_time比较大小即可筛选出精确到秒的日志。</p>
-<pre><code>BEGIN{
-  # 要筛选什么时间的日志，将其时间构建成epoch值
-  which_time = mktime(&quot;2019 11 10 03 42 40&quot;)
-}
+    return fname
 
-{
-  # 取出日志中的日期时间字符串部分
-  match($0,&quot;^.*\\[(.*)\\].*&quot;,arr)
+def get_content():
+    content = []
+    print(&#39;输入数据，输入end结束&#39;)
+    while True:
+        line = input(&#39;&gt; &#39;)
+        if line == &#39;end&#39;:
+            break
+        content.append(line)
 
-  # 将日期时间字符串转换为epoch值
-  tmp_time = strptime1(arr[1])
+    return content
 
-  # 通过比较epoch值来比较时间大小
-  if(tmp_time &gt; which_time){print}
-}
+def wfile(fname, content):
+    with open(fname, &#39;w&#39;) as fobj:
+        fobj.writelines(content)
 
-# 构建的时间字符串格式为：&quot;2019-11-10T03:42:40+08:00&quot;
-function strptime1(str   ,arr,Y,M,D,H,m,S) {
-  patsplit(str,arr,&quot;[0-9]{1,4}&quot;)
-  Y=arr[1]
-  M=arr[2]
-  D=arr[3]
-  H=arr[4]
-  m=arr[5]
-  S=arr[6]
-  return mktime(sprintf(&quot;%s %s %s %s %s %s&quot;,Y,M,D,H,m,S))
-}</code></pre><p>下面strptime2()实现的是将10/Nov/2019:23:53:44+08:00格式的字符串转换成epoch值，然后和which_time比较大小即可筛选出精确到秒的日志。</p>
-<pre><code>BEGIN{
-  which_time = mktime(&quot;2019 11 10 03 42 40&quot;)
-}
+if __name__ == &#39;__main__&#39;:
+    fname = get_fname()
+    content = get_content()
+    content = [&#39;%s\n&#39; % line for line in content]
+    wfile(fname, content)</code></pre><p>44-列表方法<br>    alist = [1, 2, 3, ‘bob’, ‘alice’]<br>    alist[0] = 10<br>    alist[1:3] = [20, 30]<br>    alist[2:2] = [22, 24, 26, 28]<br>    alist.append(100)<br>    alist.remove(24)  # 删除第一个24<br>    alist.index(‘bob’)  # 返回下标<br>    blist = alist.copy()  # 相当于blist = alist[:]<br>    alist.insert(1, 15)  # 向下标为1的位置插入数字15<br>    alist.pop()  # 默认弹出最后一项<br>    alist.pop(2) # 弹出下标为2的项目<br>    alist.pop(alist.index(‘bob’))<br>    alist.sort()<br>    alist.reverse()<br>    alist.count(20)  # 统计20在列表中出现的次数<br>    alist.clear()  # 清空<br>    alist.append(‘new’)<br>    alist.extend(‘new’)<br>    alist.extend([‘hello’, ‘world’, ‘hehe’])</p>
+<p>45-检查合法标识符<br>    import sys<br>    import keyword<br>    import string</p>
+<pre><code>first_chs = string.ascii_letters + &#39;_&#39;
+all_chs = first_chs + string.digits
 
-{
-  match($0,&quot;^.*\\[(.*)\\].*&quot;,arr)
+def check_id(idt):
+    if keyword.iskeyword(idt):
+        return &quot;%s is keyword&quot; % idt
 
-  tmp_time = strptime2(arr[1])
+    if idt[0] not in first_chs:
+        return &quot;1st invalid&quot;
 
-  if(tmp_time &gt; which_time){
-    print 
-  }
-}
+    for ind, ch in enumerate(idt[1:]):
+        if ch not in all_chs:
+            return &quot;char in postion #%s invalid&quot; % (ind + 2)
 
-# 构建的时间字符串格式为：&quot;10/Nov/2019:23:53:44+08:00&quot;
-function strptime2(str   ,dt_str,arr,Y,M,D,H,m,S) {
-  dt_str = gensub(&quot;[/:+]&quot;,&quot; &quot;,&quot;g&quot;,str)
-  # dt_sr = &quot;10 Nov 2019 23 53 44 08 00&quot;
-  split(dt_str,arr,&quot; &quot;)
-  Y=arr[3]
-  M=mon_map(arr[2])
-  D=arr[1]
-  H=arr[4]
-  m=arr[5]
-  S=arr[6]
-  return mktime(sprintf(&quot;%s %s %s %s %s %s&quot;,Y,M,D,H,m,S))
-}
+    return &quot;%s is valid&quot; % idt
 
-function mon_map(str   ,mons){
-  mons[&quot;Jan&quot;]=1
-  mons[&quot;Feb&quot;]=2
-  mons[&quot;Mar&quot;]=3
-  mons[&quot;Apr&quot;]=4
-  mons[&quot;May&quot;]=5
-  mons[&quot;Jun&quot;]=6
-  mons[&quot;Jul&quot;]=7
-  mons[&quot;Aug&quot;]=8
-  mons[&quot;Sep&quot;]=9
-  mons[&quot;Oct&quot;]=10
-  mons[&quot;Nov&quot;]=11
-  mons[&quot;Dec&quot;]=12
-  return mons[str]
-}</code></pre><p>###去掉/**/中间的注释<br>示例数据：</p>
-<pre><code>/*AAAAAAAAAA*/
-1111
-222
 
-/*aaaaaaaaa*/
-32323
-12341234
-12134 /*bbbbbbbbbb*/ 132412
+if __name__ == &#39;__main__&#39;:
+    print(check_id(sys.argv[1]))  # python3 checkid.py abc@123</code></pre><p>46-创建用户，设置随机密码<br>randpass模块参见《37-生成密码/验证码》</p>
+<pre><code>import subprocess
+import sys
+from randpass import gen_pass
 
-14534122
-/*
-    cccccccccc
-*/
-xxxxxx /*ddddddddddd
-    cccccccccc
-    eeeeeee
-*/ yyyyyyyy
-5642341</code></pre><p>awk代码：</p>
-<pre><code># 注释内的行
-/\/\*/{
-  # 同行有&quot;*/&quot;
-  if(/\*\//){
-    print gensub(&quot;(.*)/\\*.*\\*/(.*)&quot;,&quot;\\1\\2&quot;,&quot;g&quot;,$0)
-  } else {
-  # 同行没有&quot;*/&quot;
+def adduser(username, password, fname):
+    data = &quot;&quot;&quot;user information:
+%s: %s
+&quot;&quot;&quot;
+    subprocess.call(&#39;useradd %s&#39; % username, shell=True)
+    subprocess.call(
+        &#39;echo %s | passwd --stdin %s&#39; % (password, username),
+        shell=True
+    )
+    with open(fname, &#39;a&#39;) as fobj:
+        fobj.write(data % (username, password))
 
-    # 1.去掉/*行后的内容
-    print gensub(&quot;(.*)/\\*.*&quot;,&quot;\\1&quot;,&quot;g&quot;,$0)
+if __name__ == &#39;__main__&#39;:
+    username = sys.argv[1]
+    password = gen_pass()
+    adduser(username, password, &#39;/tmp/user.txt&#39;)
+# python3 adduser.py john</code></pre><p>47-列表练习：模拟栈操作<br>    stack = []</p>
+<pre><code>def push_it():
+    item = input(&#39;item to push: &#39;)
+    stack.append(item)
 
-    # 2.继续读取，直到出现*/，并去掉中间的所有数据
-    while( ( getline ) &gt; 0 ){
-      # 出现了*/行
-      if(/\*\//){
-        print gensub(&quot;.*\\*/(.*)&quot;,&quot;\\1&quot;,&quot;g&quot;,$0)
-      }
-    }
-  }
-}
-# 非注释内容
-!/\/\*/{print}</code></pre><p>###前后段落关系判断<br>从如下类型的文件中，找出false段的前一段为i-order的段，同时输出这两段。</p>
-<pre><code>2019-09-12 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    &#39;http://192.168.100.20:2800/api/payment/i-order&#39;,
-  ],
-]
-2019-09-12 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    false,
-  ],
-]
-2019-09-21 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    &#39;http://192.168.100.20:2800/api/payment/i-order&#39;,
-  ],
-]
-2019-09-21 07:16:27 [-][
-  &#39;data&#39; =&gt; [
-    &#39;http://192.168.100.20:2800/api/payment/i-user&#39;,
-  ],
-]
-2019-09-17 18:34:37 [-][
-  &#39;data&#39; =&gt; [
-    false,
-  ],
-]</code></pre><p>awk代码：</p>
-<pre><code>BEGIN{
-  RS=&quot;]\n&quot;
-  ORS=RS
-}
-{
-  if(/false/ &amp;&amp; prev ~ /i-order/){
-    print tmp
-    print
-  }
-  tmp=$0
-}</code></pre><p>###两个文件的处理<br>有两个文件file1和file2，这两个文件格式都是一样的。</p>
-<p>需求：先把文件2的第五列删除，然后用文件2的第一列减去文件一的第一列，把所得结果对应的贴到原来第五列的位置，请问这个脚本该怎么编写？</p>
-<pre><code>file1：
-50.481  64.634  40.573  1.00  0.00
-51.877  65.004  40.226  1.00  0.00
-52.258  64.681  39.113  1.00  0.00
-52.418  65.846  40.925  1.00  0.00
-49.515  65.641  40.554  1.00  0.00
-49.802  66.666  40.358  1.00  0.00
-48.176  65.344  40.766  1.00  0.00
-47.428  66.127  40.732  1.00  0.00
-51.087  62.165  40.940  1.00  0.00
-52.289  62.334  40.897  1.00  0.00
-file2：
-48.420  62.001  41.252  1.00  0.00
-45.555  61.598  41.361  1.00  0.00
-45.815  61.402  40.325  1.00  0.00
-44.873  60.641  42.111  1.00  0.00
-44.617  59.688  41.648  1.00  0.00
-44.500  60.911  43.433  1.00  0.00
-43.691  59.887  44.228  1.00  0.00
-43.980  58.629  43.859  1.00  0.00
-42.372  60.069  44.032  1.00  0.00
-43.914  59.977  45.551  1.00  0.00</code></pre><ul>
-<li>方法一：<br>`awk ‘{<pre><code>f1 = $1
-if( (getline &lt;&quot;file2&quot;) &gt;= 0 ){
-  $5 = $1 - f1
-  print $0
-}</code></pre>  }’ file1`     </li>
-</ul>
-<ul>
-<li>方法二：<br><code>awk &#39;
-NR==FNR{arr[FNR]=$1}
-NR!=FNR{$5=$1-arr[FNR];print}
-&#39; file1 file2</code></li>
-</ul>
+def pop_it():
+    if stack:
+        print(&quot;from stack popped %s&quot; % stack.pop())
+
+def view_it():
+    print(stack)
+
+def show_menu():
+    cmds = {&#39;0&#39;: push_it, &#39;1&#39;: pop_it, &#39;2&#39;: view_it}  # 将函数存入字典
+    prompt = &quot;&quot;&quot;(0) push it
+(1) pop it
+(2) view it
+(3) exit
+Please input your choice(0/1/2/3): &quot;&quot;&quot;
+
+    while True:
+        # input()得到字符串，用strip()去除两端空白，再取下标为0的字符
+        choice = input(prompt).strip()[0]
+        if choice not in &#39;0123&#39;:
+            print(&#39;Invalid input. Try again.&#39;)
+            continue
+
+        if choice == &#39;3&#39;:
+            break
+
+        cmds[choice]()
+
+
+if __name__ == &#39;__main__&#39;:
+    show_menu()</code></pre><p>48-实现Linux系统中unix2dos功能<br>    import sys</p>
+<pre><code>def unix2dos(fname):
+    dst_fname = fname + &#39;.txt&#39;
+
+    with open(fname) as src_fobj:
+        with open(dst_fname, &#39;w&#39;) as dst_fobj:
+            for line in src_fobj:
+                line = line.rstrip() + &#39;\r\n&#39;
+                dst_fobj.write(line)
+
+
+if __name__ == &#39;__main__&#39;:
+    unix2dos(sys.argv[1])</code></pre><p>49-动画程序：@从一行#中穿过<br>\r是回车不换行<br>    import time</p>
+<pre><code>length = 19
+count = 0
+
+while True:
+    print(&#39;\r%s@%s&#39; % (&#39;#&#39; * count, &#39;#&#39; * (length - count)), end=&#39;&#39;)
+    try:
+        time.sleep(0.3)
+    except KeyboardInterrupt:
+        print(&#39;\nBye-bye&#39;)
+        break
+    if count == length:
+        count = 0
+    count += 1</code></pre><p>50-字典基础用法<br>    adict = dict()  # {}<br>    dict([‘ab’, ‘cd’])<br>    bdict = dict([(‘name’, ‘bob’),(‘age’, 25)])<br>    {}.fromkeys([‘zhangsan’, ‘lisi’, ‘wangwu’], 11)</p>
+<pre><code>for key in bdict:
+    print(&#39;%s: %s&#39; % (key, bdict[key]))
+
+print(&quot;%(name)s: %(age)s&quot; % bdict)
+
+bdict[&#39;name&#39;] = &#39;tom&#39;
+bdict[&#39;email&#39;] = &#39;tom@tedu.cn&#39;
+
+del bdict[&#39;email&#39;]
+bdict.pop(&#39;age&#39;)
+bdict.clear()</code></pre><p>51-字典常用方法<br>    adict = dict([(‘name’, ‘bob’),(‘age’, 25)])<br>    len(adict)<br>    hash(10)  # 判断给定的数据是不是不可变的，不可变数据才能作为key<br>    adict.keys()<br>    adict.values()<br>    adict.items()<br>    # get方法常用，重要<br>    adict.get(‘name’)  # 取出字典中name对应的value，如果没有返回None<br>    print(adict.get(‘qq’))  # None<br>    print(adict.get(‘qq’, ‘not found’))  # 没有qq，返回指定内容<br>    print(adict.get(‘age’, ‘not found’))<br>    adict.update({‘phone’: ‘13455667788’})</p>
+<p>52-集合常用方法</p>
+<h1 id="集合相当于是无值的字典，所以也用-表示"><a href="#集合相当于是无值的字典，所以也用-表示" class="headerlink" title="集合相当于是无值的字典，所以也用{}表示"></a>集合相当于是无值的字典，所以也用{}表示</h1><pre><code>myset = set(&#39;hello&#39;)
+len(myset)
+for ch in myset:
+    print(ch)
+
+aset = set(&#39;abc&#39;)
+bset = set(&#39;cde&#39;)
+aset &amp; bset  # 交集
+aset.intersection(bset)  # 交集
+aset | bset  # 并集
+aset.union(bset)  # 并集
+aset - bset  # 差补
+aset.difference(bset)  # 差补
+aset.add(&#39;new&#39;)
+aset.update([&#39;aaa&#39;, &#39;bbb&#39;])
+aset.remove(&#39;bbb&#39;)
+cset = set(&#39;abcde&#39;)
+dset = set(&#39;bcd&#39;)
+cset.issuperset(dset)  # cset是dset的超集么？
+cset.issubset(dset)  # cset是dset的子集么？</code></pre><p>53-集合实例：取出第二个文件有，第一个文件没有的行<br>    # cp /etc/passwd .<br>    # cp /etc/passwd mima<br>    # vim mima  -&gt; 修改，与passwd有些区别</p>
+<pre><code>with open(&#39;passwd&#39;) as fobj:
+    aset = set(fobj)
+
+with open(&#39;mima&#39;) as fobj:
+    bset = set(fobj)
+
+with open(&#39;diff.txt&#39;, &#39;w&#39;) as fobj:
+    fobj.writelines(bset - aset)</code></pre><p>54-字典练习：模拟注册/登陆<br>    import getpass</p>
+<pre><code>userdb = {}
+
+def register():
+    username = input(&#39;username: &#39;)
+    if username in userdb:
+        print(&#39;%s already exists.&#39; % username)
+    else:
+        password = input(&#39;password: &#39;)
+        userdb[username] = password
+
+def login():
+    username = input(&#39;username: &#39;)
+    password = getpass.getpass(&quot;password: &quot;)
+    if userdb.get(username) != password:
+        print(&#39;login failed&#39;)
+    else:
+        print(&#39;login successful&#39;)
+
+
+def show_menu():
+    cmds = {&#39;0&#39;: register, &#39;1&#39;: login}
+    prompt = &quot;&quot;&quot;(0) register
+(1) login
+(2) exit
+Please input your choice(0/1/2): &quot;&quot;&quot;
+
+    while True:
+        choice = input(prompt).strip()[0]
+        if choice not in &#39;012&#39;:
+            print(&#39;Invalid inupt. Try again.&#39;)
+            continue
+        if choice == &#39;2&#39;:
+            break
+
+        cmds[choice]()
+
+if __name__ == &#39;__main__&#39;:
+    show_menu()</code></pre><p>55-计算千万次加法运算时间<br>    import time</p>
+<pre><code>result = 0
+start = time.time()  # 返回运算前时间戳
+for i in range(10000000):
+    result += i
+end = time.time()   # 返回运算后时间戳
+print(result)
+print(end - start)</code></pre><p>56-时间相关模块常用方法<br>    import time</p>
+<pre><code>t = time.localtime()  # 返回当前时间的九元组
+time.gmtime()  # 返回格林威治0时区当前时间的九元组
+time.time()  # 常用，与1970-1-1 8:00之间的秒数，时间戳
+time.mktime(t)  # 把九元组时间转成时间戳
+time.sleep(1)
+time.asctime()  # 如果有参数，是九元组形式
+time.ctime()  # 返回当前时间，参数是时间戳，常用
+time.strftime(&quot;%Y-%m-%d&quot;) # 常用
+time.strptime(&#39;2018-07-20&#39;, &quot;%Y-%m-%d&quot;)  # 返回九元组时间格式
+time.strftime(&#39;%H:%M:%S&#39;)
+
+###########################################
+from datetime import datetime
+from datetime import timedelta
+datetime.today()  # 返回当前时间的datetime对象
+datetime.now()  # 同上，可以用时区作参数
+datetime.strptime(&#39;2018/06/30&#39;, &#39;%Y/%m/%d&#39;)  # 返回datetime对象
+dt = datetime.today()
+datetime.ctime(dt)
+datetime.strftime(dt, &quot;%Y%m%d&quot;)
+
+days = timedelta(days=90, hours=3)  # 常用
+dt2 = dt + days
+dt2.year
+dt2.month
+dt2.day
+dt2.hour</code></pre><p>57-os模块常用方法<br>    import os</p>
+<pre><code>os.getcwd()  # 显示当前路径
+os.listdir()  # ls -a
+os.listdir(&#39;/tmp&#39;)  # ls -a /tmp
+os.mkdir(&#39;/tmp/mydemo&#39;)  # mkdir /tmp/mydemo
+os.chdir(&#39;/tmp/mydemo&#39;)  # cd /tmp/mydemo
+os.listdir()
+os.mknod(&#39;test.txt&#39;)  # touch test.txt
+os.symlink(&#39;/etc/hosts&#39;, &#39;zhuji&#39;)  # ln -s /etc/hosts zhuji
+os.path.isfile(&#39;test.txt&#39;)  # 判断test.txt是不是文件
+os.path.islink(&#39;zhuji&#39;)  # 判断zhuji是不是软链接
+os.path.isdir(&#39;/etc&#39;)
+os.path.exists(&#39;/tmp&#39;)  # 判断是否存在
+os.path.basename(&#39;/tmp/abc/aaa.txt&#39;)
+os.path.dirname(&#39;/tmp/abc/aaa.txt&#39;)
+os.path.split(&#39;/tmp/abc/aaa.txt&#39;)
+os.path.join(&#39;/home/tom&#39;, &#39;xyz.txt&#39;)
+os.path.abspath(&#39;test.txt&#39;)  # 返回当前目录test.txt的绝对路径</code></pre><p>58-pickle存储器<br>    import pickle<br>    “””以前的文件写入，只能写入字符串，如果希望把任意数据对象(数字、列表等)写入文件，<br>    取出来的时候数据类型不变，就用到pickle了<br>    “””</p>
+<pre><code># shop_list = [&quot;eggs&quot;, &quot;apple&quot;, &quot;peach&quot;]
+# with open(&#39;/tmp/shop.data&#39;, &#39;wb&#39;) as fobj:
+#     pickle.dump(shop_list, fobj)
+
+with open(&#39;/tmp/shop.data&#39;, &#39;rb&#39;) as fobj:
+    mylist = pickle.load(fobj)
+
+print(mylist[0], mylist[1], mylist[2])</code></pre><p>59-异常处理基础<br>    try:   # 把有可能发生异常的语句放到try里执行<br>        n = int(input(“number: “))<br>        result = 100 / n<br>        print(result)<br>    except ValueError:<br>        print(‘invalid number’)<br>    except ZeroDivisionError:<br>        print(‘0 not allowed’)<br>    except KeyboardInterrupt:<br>        print(‘Bye-bye’)<br>    except EOFError:<br>        print(‘Bye-bye’)</p>
+<pre><code>print(&#39;Done&#39;)</code></pre><p>60-异常处理完整语法<br>    try:<br>        n = int(input(“number: “))<br>        result = 100 / n<br>    except (ValueError, ZeroDivisionError):<br>        print(‘invalid number’)<br>    except (KeyboardInterrupt, EOFError):<br>        print(‘\nBye-bye’)<br>    else:<br>        print(result)  # 异常不发生时才执行else子句<br>    finally:<br>        print(‘Done’)  # 不管异常是否发生都必须执行的语句</p>
+<pre><code># 常用形式有try-except和try-finally</code></pre><p>21.使用枚举<br>以下方法将字典作为输入，然后仅返回该字典中的键。</p>
+<p>list = [“a”, “b”, “c”, “d”]<br>for index, element in enumerate(list):<br>    print(“Value”, element, “Index “, index, )</p>
+<h1 id="‘Value’-‘a’-‘Index-‘-0"><a href="#‘Value’-‘a’-‘Index-‘-0" class="headerlink" title="(‘Value’, ‘a’, ‘Index ‘, 0)"></a>(‘Value’, ‘a’, ‘Index ‘, 0)</h1><h1 id="‘Value’-‘b’-‘Index-‘-1"><a href="#‘Value’-‘b’-‘Index-‘-1" class="headerlink" title="(‘Value’, ‘b’, ‘Index ‘, 1)"></a>(‘Value’, ‘b’, ‘Index ‘, 1)</h1><p>#(‘Value’, ‘c’, ‘Index ‘, 2)</p>
+<h1 id="‘Value’-‘d’-‘Index-‘-3"><a href="#‘Value’-‘d’-‘Index-‘-3" class="headerlink" title="(‘Value’, ‘d’, ‘Index ‘, 3)"></a>(‘Value’, ‘d’, ‘Index ‘, 3)</h1><p>22.计算所需时间<br>以下代码段可用于计算执行特定代码所需的时间。</p>
+<p>import time<br>start_time = time.time()<br>a = 1<br>b = 2<br>c = a + b<br>print(c) #3<br>end_time = time.time()<br>total_time = end_time - start_time<br>print(“Time: “, total_time)</p>
+<h1 id="‘Time-‘-1-1205673217773438e-05"><a href="#‘Time-‘-1-1205673217773438e-05" class="headerlink" title="(‘Time: ‘, 1.1205673217773438e-05)"></a>(‘Time: ‘, 1.1205673217773438e-05)</h1><p>23.Try else 指令<br>你可以将 else 子句作为 try/except 块的一部分，如果没有抛出异常，则执行该子句。</p>
+<p>try:<br>    2*3<br>except TypeError:<br>    print(“An exception was raised”)<br>else:<br>    print(“Thank God, no exceptions were raised.”)<br>#Thank God, no exceptions were raised.<br>24.查找最常见元素<br>以下方法返回列表中出现的最常见元素。</p>
+<p>def most_frequent(list):<br>    return max(set(list), key = list.count)</p>
+<p>list = [1,2,1,2,3,2,1,4,2]<br>most_frequent(list)<br>25.回文<br>以下方法可检查给定的字符串是否为回文结构。该方法首先将字符串转换为小写，然后从中删除非字母数字字符。最后，它会将新的字符串与反转版本进行比较。</p>
+<p>def palindrome(string):<br>    from re import sub<br>    s = sub(‘[W_]’, ‘’, string.lower())<br>    return s == s[::-1]<br>palindrome(‘taco cat’) # True<br>26.没有 if-else 语句的简单计算器<br>以下代码段将展示如何编写一个不使用 if-else 条件的简单计算器。</p>
+<p>import operator<br>action = {<br>    “+”: operator.add,<br>    “-“: operator.sub,<br>    “/“: operator.truediv,<br>    “*”: operator.mul,<br>    “**”: pow<br>}<br>print(action[‘-‘](50, 25)) # 25<br>27.元素顺序打乱<br>以下算法通过实现 Fisher-Yates算法 在新列表中进行排序来将列表中的元素顺序随机打乱。</p>
+<p>from copy import deepcopy<br>from random import randint<br>def shuffle(lst):<br>    temp_lst = deepcopy(lst)<br>    m = len(temp_lst)<br>    while (m):<br>        m -= 1<br>        i = randint(0, m)<br>        temp_lst[m], temp_lst[i] = temp_lst[i], temp_lst[m]<br>    return temp_lst</p>
+<p>foo = [1,2,3]<br>shuffle(foo) # [2,3,1] , foo = [1,2,3]<br>28.列表扁平化<br>以下方法可使列表扁平化，类似于JavaScript中的[].concat(…arr)。</p>
+<p>def spread(arg):<br>    ret = []<br>    for i in arg:<br>        if isinstance(i, list):<br>            ret.extend(i)<br>        else:<br>            ret.append(i)<br>    return ret<br>spread([1,2,3,[4,5,6],[7],8,9]) # [1,2,3,4,5,6,7,8,9]<br>29.变量交换<br>以下是交换两个变量的快速方法，而且无需使用额外的变量。</p>
+<p>def swap(a, b):<br>  return b, a<br>a, b = -1, 14<br>swap(a, b) # (14, -1)<br>30.获取缺失键的默认值<br>以下代码段显示了如何在字典中没有包含要查找的键的情况下获得默认值。</p>
+<p>d = {‘a’: 1, ‘b’: 2}<br>print(d.get(‘c’, 3)) # 3</p>
 
             </div>
             <hr/>
@@ -868,11 +744,7 @@ NR!=FNR{$5=$1-arr[FNR];print}
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/shell/">
-                                    <span class="chip bg-color">shell</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1042,28 +914,21 @@ NR!=FNR{$5=$1-arr[FNR];print}
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/29/zi-yuan-lian-jie/">
+                <a href="/2020/04/29/python-pa-qu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="资源包">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="python爬取">
                         
-                        <span class="card-title">资源包</span>
+                        <span class="card-title">python爬取</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-精品软件合集：https://lanzous.com/b06rgikha
-
-黑仓：https://lanzous.com/u/wuzuowei
-
-资源查找：
-
-特殊资源fq： https://apkcombo.com/zh-cn/
-
-
+                            ####抓取淘宝 MM 照片
+http://www.voidcn.com/article/p-fimqilly-bnw.html
+####python做网站 （用 tornado 做网站）http://www.voidcn.com/arti
                         
                     </div>
                     <div class="publish-info">
@@ -1072,23 +937,11 @@ NR!=FNR{$5=$1-arr[FNR];print}
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6/" class="post-category">
-                                    软件
-                                </a>
+                            <i class="fas fa-user fa-fw"></i>
                             
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%BD%AF%E4%BB%B6/">
-                        <span class="chip bg-color">软件</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1100,44 +953,71 @@ NR!=FNR{$5=$1-arr[FNR];print}
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/25/hao-yong-wang-zhi/">
+                <a href="/2020/04/29/sumiao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="好用网站">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="sumiao">
                         
-                        <span class="card-title">好用网站</span>
+                        <span class="card-title">sumiao</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习 | 找书籍 | 冷知识、黑科技|写代码|资源搜索|小工具|导航页:工具集|看视频|学设计|搞文档 |找图片
+                            ###铅笔画
+
+
+===============================
+手账水彩画
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
-                            skying
+                            
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E7%BD%91%E7%AB%99/">
-                        <span class="chip bg-color">网站</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">学习</span>
-                    </a>
-                    
                 </div>
                 
             </div>
